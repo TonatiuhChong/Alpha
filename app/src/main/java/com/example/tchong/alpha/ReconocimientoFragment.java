@@ -50,8 +50,8 @@ public class ReconocimientoFragment extends Fragment {
         ImgUSer=(ImageView)Rec.findViewById(R.id.FUserR);
 
 
-        //arrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,rooms);
-//        lista.setAdapter(arrayAdapter);
+        arrayAdapter= new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, rooms);
+        lista.setAdapter(arrayAdapter);
 
         NombreU.setText(Singleton.getInstance().getUser());
         EmailU.setText(Singleton.getInstance().getEmail());

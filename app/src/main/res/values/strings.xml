@@ -114,4 +114,6 @@
     <string name="OlvidasteTuContraseña">Olvidaste tu contraseña?</string>
     <string name="VerificacionEmail">Enviar Verificación de Email</string>
     <string name="ActualizarRegistro">Actualizar Verificación</string>
+    <string name="Habitaciones">Habitaciones</string>
+    <string name="Seleccionahabitación">Selecciona Habitación</string>
 </resources>

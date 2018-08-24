@@ -6,22 +6,43 @@
     android:orientation="vertical"
     tools:context=".ControlFragment">
 
-    <EditText
+    <TextView
         android:id="@+id/Habitacion"
+        android:text="@string/Seleccionahabitación"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingrese el nombre del cuarto"/>
+
+    <Spinner
+        android:id="@+id/Habitaciones"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/Habitaciones">
+
+    </Spinner>
+
     <EditText
         android:id="@+id/TSensor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingrese el tipo de sensor"/>
 
+    <Spinner
+        android:id="@+id/TSSensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <EditText
         android:id="@+id/Valor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingrese el valor de la variable"/>
+
+    <Spinner
+        android:id="@+id/VSensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <Button
         android:id="@+id/BtnActualizar"
