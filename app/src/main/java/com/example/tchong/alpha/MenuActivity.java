@@ -144,8 +144,8 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.ReconocimientoFacial) {
             // Handle the camera action
-            //fm.beginTransaction().replace(R.id.escenario, new ReconocimientoFragment()).commit();
-            startActivity(new Intent(this,ReconocimientoActivity.class));
+            fm.beginTransaction().replace(R.id.escenario, new ReconocimientoFragment()).commit();
+//            startActivity(new Intent(this,ReconocimientoActivity.class));
         } else if (id == R.id.ControlDelHogar) {
             fm.beginTransaction().replace(R.id.escenario, new ControlFragment()).commit();
         } else if (id == R.id.Sensores) {
