@@ -3,6 +3,8 @@ package com.example.tchong.alpha;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -21,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,35 +52,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, GoogleApiClient.OnConnectionFailedListener {
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
     private UserLoginTask mAuthTask = null;
 
-    // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
@@ -87,6 +81,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REGISTRADO = 777;
     private FirebaseAuth mAuth;
     private Button Registrar;
+    private TextView olvido;
+    private Uri FDownload;
 
 
     @Override
@@ -107,6 +103,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView = (EditText) findViewById(R.id.password);
         google =(SignInButton) findViewById(R.id.BtnGoogle);
         mAuth = FirebaseAuth.getInstance();
+        olvido=(TextView)findViewById(R.id.ForgotPassword);
+
+        olvido.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgotPassword();
+            }
+        });
+
 
         google.setOnClickListener(new OnClickListener() {
             @Override
@@ -146,6 +151,54 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
+    }
+
+    private void forgotPassword() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        final EditText input = new EditText(LoginActivity.this);
+
+        builder.setTitle("Recuperacion de Contraseña").setView(input)
+                .setMessage("Escribe tu email para continuar con el proceso de recuperacion de cuenta")
+                .setPositiveButton("Solicitar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+                        // continue with delete
+                        String RecEmail=input.getText().toString();
+                        if (RecEmail.isEmpty()){
+                            input.setError("Campo Vacio");
+                            input.requestFocus();
+                        }if (!Patterns.EMAIL_ADDRESS.matcher(RecEmail).matches()){
+                            input.setError("Escribe un Email valido");
+                            input.requestFocus();
+                        }
+                        auth.sendPasswordResetEmail(RecEmail)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            // do something when mail was sent successfully.
+                                        } else {
+                                            // ...
+                                        }
+                                    }
+                                });
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                        dialog.cancel();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
     }
 
     private void populateAutoComplete() {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ControlFragment">
+
+    <EditText
+        android:id="@+id/Habitacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el nombre del cuarto"/>
+    <EditText
+        android:id="@+id/TSensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el tipo de sensor"/>
+
+    <EditText
+        android:id="@+id/Valor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el valor de la variable"/>
+
+    <Button
+        android:id="@+id/BtnActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actualizar"/>
+
+    <TextView
+        android:textAlignment="center"
+        android:id="@+id/Mirror"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nada que mostrar"/>
+
+</LinearLayout>

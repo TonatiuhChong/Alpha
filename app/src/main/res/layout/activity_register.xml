@@ -7,13 +7,26 @@
     tools:context=".RegisterActivity"
     android:orientation="vertical">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <TextView
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Por favor, toca la camara para seleccionar tu foto de perfil"/>
+
     <ImageView
         android:id="@+id/Foto"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/cameraregister_round" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +37,7 @@
         android:hint="Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +52,8 @@
         android:id="@+id/RefPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/RegistroPassword" />
+        android:text="@string/RegistroPassword"
+        android:clickable="true"/>
 
     <EditText
         android:id="@+id/Password"
@@ -60,6 +75,28 @@
         android:hint="Escribe nuevamente tu contraseña"
         android:inputType="textPassword" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/VerificarEmail"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/VerificacionEmail" />
+
+        <Button
+            android:id="@+id/EntrarMenu"
+            style="@android:style/Widget.Holo.Button.Small"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:shadowColor="@color/colorPrimary"
+            android:text="Entrar"
+            android:textAlignment="center"
+            android:textColorLink="@color/design_default_color_primary_dark" />
+    </LinearLayout>
     <Button
         android:id="@+id/Registrar"
         android:layout_width="match_parent"
