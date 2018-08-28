@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -53,7 +54,6 @@ public class MenuActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -82,6 +82,9 @@ public class MenuActivity extends AppCompatActivity
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
+        FragmentTransaction tx=getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.escenario,new ControlFragment());
+        tx.commit();
 
     }
 
@@ -112,6 +115,10 @@ public class MenuActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.CerrarSesion) {
             FirebaseAuth.getInstance().signOut();
+            Singleton.getInstance().setFoto(null);
+            Singleton.getInstance().setPassword(null);
+            Singleton.getInstance().setEmail(null);
+            Singleton.getInstance().setUser(null);
             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                 @Override
                 public void onResult(@NonNull Status status) {
@@ -144,17 +151,17 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.ReconocimientoFacial) {
             // Handle the camera action
-            fm.beginTransaction().replace(R.id.escenario, new ReconocimientoFragment()).commit();
-//            startActivity(new Intent(this,ReconocimientoActivity.class));
+            //fm.beginTransaction().replace(R.id.escenario, new ReconocimientoFragment()).commit();
+            startActivity(new Intent(this,ReconocimientoActivity.class));
         } else if (id == R.id.ControlDelHogar) {
             fm.beginTransaction().replace(R.id.escenario, new ControlFragment()).commit();
         } else if (id == R.id.Sensores) {
-
+        fm.beginTransaction().replace(R.id.escenario,new ItemFragment()).commit();
         } else if (id == R.id.Configuracion) {
             startActivity(new Intent(this,ConfiguracionActivity.class));
 
         } else if (id == R.id.Compartir) {
-
+           // fm.beginTransaction().replace(R.id.escenario,new PlusOneFragment()).commit();
         } else if (id == R.id.Soporte) {
 
         }

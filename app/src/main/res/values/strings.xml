@@ -21,8 +21,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Configuración</string>
-    <string name="RegistroPassword">Contraseña</string>
-    <string name="RegistroUsuario">Usuario</string>
+    <string name="RegistroPassword">Registra tu contraseña</string>
+    <string name="RegistroUsuario">Escribe tu Usuario</string>
     <string name="RegistroEmail">Escribe tu email</string>
     <string name="Login">Login</string>
     <string name="Registrarse">No tienes cuenta? Registrate ya!</string>
@@ -116,4 +116,6 @@
     <string name="ActualizarRegistro">Actualizar Verificación</string>
     <string name="Habitaciones">Habitaciones</string>
     <string name="Seleccionahabitación">Selecciona Habitación</string>
+    <string name="RegistrarCuenta">Registrar Cuenta</string>
+    <string name="SaludoRegistro">Registra tu Cuenta</string>
 </resources>

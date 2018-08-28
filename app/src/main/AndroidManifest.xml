@@ -31,7 +31,8 @@
         <activity android:name=".ReconocimientoActivity" />
         <activity
             android:name=".ConfiguracionActivity"
-            android:label="@string/title_activity_configuracion"></activity>
+            android:label="@string/title_activity_configuracion" />
+        <activity android:name=".Register2Activity"></activity>
     </application>
 
 </manifest>

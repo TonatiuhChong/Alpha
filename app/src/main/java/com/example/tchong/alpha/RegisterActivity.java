@@ -15,13 +15,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,251 +41,141 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterActivity extends AppCompatActivity {
 
-    private static final int CHOOSE_IMAGE =123 ;
-    private static final String TAG = "11";
-    private FirebaseAuth mAuth;
-    private EditText usuario, password,password2,email;
-    private ProgressDialog progressDialog;
-    private ImageView foto;
-    private Uri uriProfileImage;
+    private static final int CHOOSE_IMAGE = 101;
+
+    TextView textView;
+    ImageView imageView;
+    EditText editText;
+
+    Uri uriProfileImage;
+
     String profileImageUrl;
-    private TextView verificacion;
-    private Toolbar mTopToolbar;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        mTopToolbar = (Toolbar) findViewById(R.id.toolbarRegistro);
-        setSupportActionBar(mTopToolbar);
-
         mAuth = FirebaseAuth.getInstance();
-        usuario = (EditText) findViewById(R.id.Rusuario);
-        email = (EditText) findViewById(R.id.REmail);
-        password = (EditText) findViewById(R.id.Password);
-        password2 = (EditText) findViewById(R.id.Password2);
-        foto= (ImageView)findViewById(R.id.Foto);
-        verificacion=(TextView)findViewById(R.id.VerificarEmail);
-        findViewById(R.id.Foto).setOnClickListener(this);
-        findViewById(R.id.Registrar).setOnClickListener(this);
-        findViewById(R.id.Login).setOnClickListener(this);
-        findViewById(R.id.RefPassword).setOnClickListener(this);
-        findViewById(R.id.RefPassword2).setOnClickListener(this);
-        findViewById(R.id.VerificarEmail).setOnClickListener(this);
-        findViewById(R.id.VerificarEmail).setVisibility(View.INVISIBLE);
-        findViewById(R.id.EntrarMenu).setOnClickListener(this);
-        findViewById(R.id.EntrarMenu).setVisibility(View.INVISIBLE);
-        progressDialog = new ProgressDialog(this);
 
-    }
+        Toolbar toolbar = findViewById(R.id.toolbarRegistro);
+        setSupportActionBar(toolbar);
 
+        editText = (EditText) findViewById(R.id.Rusuario);
+        imageView = (ImageView) findViewById(R.id.Foto);
+        textView = (TextView) findViewById(R.id.VerificarEmail);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.ActualizarRegistro) {
-            sendEmailVerification();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-    private void registerUser(){
-
-        final String Email=email.getText().toString().trim();
-        final String User=usuario.getText().toString().trim();
-        final String Password= password.getText().toString().trim();
-        String Password2= password2.getText().toString().trim();
-        //****PONER VALIDACIONES DE EMAIL Y CONTRASEÑAS
-
-        if(TextUtils.isEmpty(Email)){
-            email.setError("Please enter a valid email");
-            email.requestFocus();
-            Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
-            email.setError("Please enter a valid email");
-            email.requestFocus();
-            return;
-        }
-
-        if (User.isEmpty()) {
-            usuario.setError("Escriba su usuario");
-            usuario.requestFocus();
-            return;
-        }
-        if(TextUtils.isEmpty(Password)){
-            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (Password.isEmpty()) {
-            password.setError("Password is required");
-            password.requestFocus();
-            return;
-        }
-
-        if (Password.length() < 6) {
-            password.setError("Minimum lenght of password should be 6");
-            password.requestFocus();
-            return;
-        }
-
-        //creating a new user
-        progressDialog.setMessage("Registering Please Wait...");
-        progressDialog.show();
-
-        mAuth.createUserWithEmailAndPassword(Email, Password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        //checking if success
-                        if(task.isSuccessful()){
-
-                            final CUser user = new CUser(
-                                    User,
-                                    Email,
-                                    Password,
-                                    foto
-                            );
-                            createFirebaseUserProfile(task.getResult().getUser(),user.name);
-
-
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-
-                                    if (task.isSuccessful()) {
-                                       Toast.makeText(RegisterActivity.this, "Registro completo, por favor verifica tu usuario", Toast.LENGTH_LONG).show();
-                                       findViewById(R.id.VerificarEmail).setVisibility(View.VISIBLE);
-                                        //startActivity(new Intent(RegisterActivity.this,MenuActivity.class));
-                                    } else {
-                                        //display a failure message
-                                        Toast.makeText(RegisterActivity.this, "No furula", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-
-                        }else{
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                        progressDialog.dismiss();
-                    }
-                });
-
-
-
-
-    }
-    private void createFirebaseUserProfile(final FirebaseUser user, final String mName) {
-
-        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
-                .setDisplayName(mName)
-                .build();
-
-        user.updateProfile(addProfileName)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Singleton.getInstance().setUser(mName);
-
-                        }
-                    }
-
-                });
-    }
-
-
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.EntrarMenu:
-                startActivity(new Intent(RegisterActivity.this,MenuActivity.class));
-                break;
-            case R.id.VerificarEmail:
-                sendEmailVerification();
-                break;
-            case R.id.Registrar:
-                registerUser();
-                break;
-            case  R.id.Login:
-                finish();
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
-            case R.id.Foto:
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 showImageChooser();
-                break;
-            case R.id.RefPassword:
-                AlertDialog.Builder pass= new AlertDialog.Builder(this);
-                pass.setTitle("Contraseña");
+            }
+        });
 
-                final TextView info= new TextView(this);
-                info.setText("La contraseña debe de tener almenos 6 digitos");
-                pass.setView(info);
-                pass.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
+        loadUserInformation();
 
-                    }
-                });
-                break;
 
+        findViewById(R.id.Registrar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveUserInformation();
+            }
+        });
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() == null) {
+            finish();
+            startActivity(new Intent(this, MenuActivity.class));
         }
     }
 
-    private void showImageChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
+    private void loadUserInformation() {
+        final FirebaseUser user = mAuth.getCurrentUser();
 
+        if (user != null) {
+            if (user.getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(user.getPhotoUrl().toString())
+                        .into(imageView);
+            }
 
+            if (user.getDisplayName() != null) {
+                editText.setText(user.getDisplayName());
+            }
 
+            if (user.isEmailVerified()) {
+                textView.setText("Email Verified");
+            } else {
+                textView.setText("Email Not Verified (Click to Verify)");
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(RegisterActivity.this, "Verification Email Sent", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        }
     }
+
+
+    private void saveUserInformation() {
+
+
+        String displayName = editText.getText().toString();
+
+        if (displayName.isEmpty()) {
+            editText.setError("Name required");
+            editText.requestFocus();
+            return;
+        }
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null && profileImageUrl != null) {
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(displayName)
+                    .setPhotoUri(Uri.parse(profileImageUrl))
+                    .build();
+
+            user.updateProfile(profile)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Singleton.getInstance().setUser(mAuth.getCurrentUser().getDisplayName());
+                                Singleton.getInstance().setEmail(mAuth.getCurrentUser().getEmail());
+                                Singleton.getInstance().setFoto(mAuth.getCurrentUser().getPhotoUrl());
+
+                                Toast.makeText(RegisterActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(new Intent(RegisterActivity.this,MenuActivity.class));
+                            }
+                        }
+                    });
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uriProfileImage = data.getData();
-            Singleton.getInstance().setFoto(data.getData());
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
-                foto.setImageBitmap(bitmap);
+                imageView.setImageBitmap(bitmap);
 
                 uploadImageToFirebaseStorage();
 
@@ -294,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void uploadImageToFirebaseStorage() {
         StorageReference profileImageRef =
-                FirebaseStorage.getInstance().getReference("profilepics/" + password2.getText().toString() + ".jpg");
+                FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
 
         if (uriProfileImage != null) {
 
@@ -316,38 +209,51 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-    private void sendEmailVerification() {
-        FirebaseUser bb = mAuth.getCurrentUser();
-        findViewById(R.id.VerificarEmail).setEnabled(false);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_register, menu);
 
+        return true;
+    }
 
-        if (bb.isEmailVerified()) {
-            verificacion.setText("Email Verified");
-            verificacion.setEnabled(true);
-            findViewById(R.id.EntrarMenu).setVisibility(View.VISIBLE);
-
-
-            final FirebaseUser user = mAuth.getCurrentUser();
-            user.sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        switch (item.getItemId()) {
+            case R.id.ActualizarRegistro:
+                if (user.isEmailVerified()) {
+                    textView.setText("Email Verified");
+                } else {
+                    textView.setText("Email Not Verified (Click to Verify)");
+                    textView.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            // Re-enable Verify Email button
-
-                            findViewById(R.id.VerificarEmail).setEnabled(true);
-
-                            if (task.isSuccessful()) {
-
-                                Toast.makeText(getApplicationContext(), "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Log.e(TAG, "sendEmailVerification failed!", task.getException());
-                                Toast.makeText(getApplicationContext(), "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                            }
+                        public void onClick(View view) {
+                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(RegisterActivity.this, "Verification Email Sent", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     });
+                }
+
+
+
+                break;
         }
 
+        return true;
     }
-}
 
+    private void showImageChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
+    }
+
+
+}
