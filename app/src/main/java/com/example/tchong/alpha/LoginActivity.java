@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, GoogleApiClient.OnConnectionFailedListener,View.OnClickListener {
 
     private static final int REQUEST_READ_CONTACTS = 0;
 
@@ -92,13 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-        GoogleSignInOptions gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        googleApiClient =new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,  this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
-                .build();
+
 
         mPasswordView = (EditText) findViewById(R.id.password);
         google =(SignInButton) findViewById(R.id.BtnGoogle);
@@ -111,7 +105,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 forgotPassword();
             }
         });
-
+        GoogleSignInOptions gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient =new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,  this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
 
         google.setOnClickListener(new OnClickListener() {
             @Override
@@ -237,10 +237,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REGISTRADO) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+        if(requestCode==REGISTRADO){
+            GoogleSignInResult result= Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-            google(result);
+
         }
 
 
@@ -272,7 +272,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Singleton.getInstance().setUser(account.getDisplayName());
             Singleton.getInstance().setEmail(account.getEmail());
             Singleton.getInstance().setFoto(account.getPhotoUrl());
-
+        goMainScreen();
 
         }else {
             Toast.makeText(this, R.string.NOTLOGIN, Toast.LENGTH_SHORT).show();
@@ -469,6 +469,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.BtnGoogle:
+                Intent intent= Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,REGISTRADO);
+                break;
+        }
+    }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -534,6 +544,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(mAuth!=null){
+            finish();
+            startActivity(new Intent(this,MenuActivity.class));
         }
     }
 }

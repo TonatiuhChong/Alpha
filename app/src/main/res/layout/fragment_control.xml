@@ -7,7 +7,6 @@
     tools:context=".ControlFragment">
 
     <TextView
-        android:id="@+id/Habitacion"
         android:text="@string/Seleccionahabitación"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingrese el tipo de sensor"/>
-
+    <TextView
+        android:text="Seleccione el tipo de sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
     <Spinner
         android:id="@+id/TSSensor"
         android:layout_width="match_parent"
@@ -37,7 +40,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingrese el valor de la variable"/>
-
+    <TextView
+        android:text="Valor del sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
     <Spinner
         android:id="@+id/VSensor"
         android:layout_width="match_parent"
