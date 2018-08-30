@@ -74,14 +74,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private View mProgressView,mLoginFormView;
     private GoogleApiClient googleApiClient;
     private SignInButton google;
     private static final int REGISTRADO = 777;
     private FirebaseAuth mAuth;
-    private Button Registrar;
-    private TextView olvido;
+    private TextView olvido,Registrar;
     private Uri FDownload;
 
 
@@ -143,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        Registrar=(Button)findViewById(R.id.Registrarse);
+        Registrar=(TextView)findViewById(R.id.Registrarse);
         Registrar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -344,22 +342,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+
+            //mAuthTask = new UserLoginTask(email, password);
             //mAuthTask.execute((Void) null);
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        showProgress(true);
                         if (task.isSuccessful()) {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             Singleton.getInstance().setUser(user.getUid());
                             Singleton.getInstance().setEmail(user.getEmail());
                             Singleton.getInstance().setFoto(user.getPhotoUrl());
-
-                               Toast.makeText(LoginActivity.this, "Acceso exitoso", Toast.LENGTH_SHORT).show();
-
-
 
                             finish();
                             goMainScreen();

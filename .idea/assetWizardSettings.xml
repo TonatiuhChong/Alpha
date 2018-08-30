@@ -36,9 +36,9 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="839ca6" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="C:\Users\tchong\Downloads\Cámara SLR-16-30-40-80-480px\icons8-cámara-slr-480.png" />
+                                      <entry key="foregroundImage" value="C:\Users\tchong\Downloads\Añadir cámara-64-128-512px\icons8-añadir-cámara-512.png" />
                                       <entry key="foregroundLayerName" value="ic_camera_register" />
-                                      <entry key="outputName" value="cameraregister" />
+                                      <entry key="outputName" value="cameraregister2" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -1,6 +1,7 @@
 package com.example.tchong.alpha;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,12 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -249,6 +252,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void showImageChooser() {
+
+
+
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -256,4 +263,5 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+   
 }
