@@ -60,7 +60,7 @@ public class ControlFragment extends Fragment {
         aa.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         ArrayAdapter<String> bb = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,Sense);
         bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-        ArrayAdapter cc = new ArrayAdapter(Rec.getContext(),android.R.layout.simple_spinner_item,rooms);
+        ArrayAdapter cc = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,rooms);
         cc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Spinner Adaptacion al spinner
         spin.setOnItemSelectedListener(new HabitacionSpinnerClass());

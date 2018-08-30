@@ -44,6 +44,7 @@ public class MenuActivity extends AppCompatActivity
     private TextView Usuario, Email;
     private ImageView Fusuario;
     private GoogleApiClient googleApiClient;
+    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private String OPEN_WEATHER_MAP_API = "cbfdb21fa1793c10b14b6b6d00fbef03";
 
     @Override
@@ -115,10 +116,10 @@ public class MenuActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.CerrarSesion) {
             FirebaseAuth.getInstance().signOut();
-            Singleton.getInstance().setFoto(null);
-            Singleton.getInstance().setPassword(null);
-            Singleton.getInstance().setEmail(null);
-            Singleton.getInstance().setUser(null);
+//            Singleton.getInstance().setFoto(null);
+//            Singleton.getInstance().setPassword(null);
+//            Singleton.getInstance().setEmail(null);
+//            Singleton.getInstance().setUser(null);
             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                 @Override
                 public void onResult(@NonNull Status status) {
@@ -137,6 +138,7 @@ public class MenuActivity extends AppCompatActivity
     }
 
     private void goLogInScreen() {
+        finish();
         Intent intent= new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

@@ -547,14 +547,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if(mAuth!=null){
-            finish();
-            startActivity(new Intent(this,MenuActivity.class));
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        if(mAuth!=null){
+//            finish();
+//            startActivity(new Intent(this,MenuActivity.class));
+//        }
+//    }
 }
 
