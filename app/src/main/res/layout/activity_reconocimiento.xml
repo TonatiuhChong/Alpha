@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReconocimientoActivity"
+    tools:context=".Activities.ReconocimientoActivity"
     android:orientation="vertical">
 
 
@@ -37,7 +37,7 @@
                 android:text="Usuario" />
 
             <TextView
-                android:id="@+id/RRUSer"
+                android:id="@+id/FRUSer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre Usuario" />
@@ -45,8 +45,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email" />
+
             <TextView
-                android:id="@+id/RREmail"
+                android:id="@+id/FREmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Texto Email" />
@@ -54,8 +55,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nivel de Perfil" />
+
             <TextView
-                android:id="@+id/RRPerfil"
+                android:id="@+id/FRPerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Valor Perfil" />
@@ -65,9 +67,9 @@
 
 
     <ListView
+        android:id="@+id/FRlista"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lista"></ListView>
+        android:layout_height="match_parent"></ListView>
 
 
 
