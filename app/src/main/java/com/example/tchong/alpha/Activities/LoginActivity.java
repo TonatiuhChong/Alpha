@@ -304,7 +304,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Store values at the time of the login attempt.
         final String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        final String password = mPasswordView.getText().toString();
 
 
         boolean cancel = false;
@@ -344,8 +344,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         showProgress(true);
                         if (task.isSuccessful()) {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            Singleton.getInstance().setUser(user.getUid());
+                            Singleton.getInstance().setUser(user.getDisplayName());
                             Singleton.getInstance().setEmail(user.getEmail());
+                            Singleton.getInstance().setPassword(password);
                             Singleton.getInstance().setFoto(user.getPhotoUrl());
 
                             finish();
@@ -369,7 +370,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 7;
+        return password.length() > 6;
     }
 
     /**

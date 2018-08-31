@@ -1,4 +1,4 @@
-package com.example.tchong.alpha;
+package com.example.tchong.alpha.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Singletons.Singleton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -38,10 +39,6 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
     private ListView lista;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> rooms= new ArrayList<>();
-    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
-
-
-
 
     @Nullable
     @Override
@@ -72,17 +69,17 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                conexion();
+
             }
         });
 
-
+        conexion();
         return Rec;
     }
 
     private void conexion() {
 
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Habitaciones");
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,6 +90,7 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
                 }
                 rooms.clear();
                 rooms.addAll(set);
+
 
                 arrayAdapter.notifyDataSetChanged();
             }

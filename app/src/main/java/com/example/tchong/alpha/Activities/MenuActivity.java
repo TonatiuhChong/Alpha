@@ -23,9 +23,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.tchong.alpha.Configurations.ConfiguracionActivity;
 import com.example.tchong.alpha.Fragments.ControlFragment;
-import com.example.tchong.alpha.Fragments.ItemFragment;
 import com.example.tchong.alpha.R;
-import com.example.tchong.alpha.ReconFragment;
+import com.example.tchong.alpha.Fragments.ReconFragment;
+import com.example.tchong.alpha.Fragments.SensorFragment;
 import com.example.tchong.alpha.Singletons.Singleton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -169,7 +169,7 @@ public class MenuActivity extends AppCompatActivity
         } else if (id == R.id.ControlDelHogar) {
             fm.beginTransaction().replace(R.id.escenario, new ControlFragment()).commit();
         } else if (id == R.id.Sensores) {
-        fm.beginTransaction().replace(R.id.escenario,new ItemFragment()).commit();
+        fm.beginTransaction().replace(R.id.escenario,new SensorFragment()).commit();
         } else if (id == R.id.Configuracion) {
             startActivity(new Intent(this,ConfiguracionActivity.class));
 

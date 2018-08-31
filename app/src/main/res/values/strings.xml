@@ -118,4 +118,8 @@
     <string name="Seleccionahabitación">Selecciona Habitación</string>
     <string name="RegistrarCuenta">Registrar Cuenta</string>
     <string name="SaludoRegistro">Registra tu Cuenta</string>
+    <string name="TotalSensores">Sensores Habilitados:</string>
+    <string name="Totalhabitaciones">Cuartos activos:</string>
+    <string name="registration_success">Registro completo</string>
+
 </resources>

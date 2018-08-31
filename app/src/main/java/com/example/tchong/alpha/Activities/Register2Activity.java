@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tchong.alpha.R;
+import com.example.tchong.alpha.Singletons.Singleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,8 +38,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     }
 
     private void registerUser() {
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
         String password2 = editTextPassword2.getText().toString().trim();
 
         if (email.isEmpty()) {
@@ -77,6 +78,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
+                    Singleton.getInstance().setEmail(email);
+                    Singleton.getInstance().setPassword(password);
                     finish();
                     startActivity(new Intent(Register2Activity.this, RegisterActivity.class));
                 } else {

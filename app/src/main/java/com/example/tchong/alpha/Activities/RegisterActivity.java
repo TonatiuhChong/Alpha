@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tchong.alpha.R;
+import com.example.tchong.alpha.Singletons.CUser;
 import com.example.tchong.alpha.Singletons.Singleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,6 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -124,7 +126,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void saveUserInformation() {
 
-
         String displayName = editText.getText().toString();
 
         if (displayName.isEmpty()) {
@@ -132,8 +133,20 @@ public class RegisterActivity extends AppCompatActivity {
             editText.requestFocus();
             return;
         }
-
-        FirebaseUser user = mAuth.getCurrentUser();
+        Singleton.getInstance().setUser(displayName);
+        final FirebaseUser user = mAuth.getCurrentUser();
+        CUser datos = new CUser(
+                Singleton.getInstance().getUser(),
+                Singleton.getInstance().getEmail(),
+                Singleton.getInstance().getPassword()
+        );
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(datos).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+            }
+        });
 
         if (user != null && profileImageUrl != null) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
