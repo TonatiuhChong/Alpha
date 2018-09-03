@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BlankFragment">
+
+
+    <ImageView
+        android:id="@+id/HabServicio"
+        android:layout_width="135dp"
+        android:layout_height="57dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="203dp"
+        tools:layout_editor_absoluteY="480dp" />
+
+    <ImageView
+        android:id="@+id/HabCocina2"
+        android:layout_width="136dp"
+        android:layout_height="136dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="203dp"
+        tools:layout_editor_absoluteY="330dp" />
+
+    <ImageView
+        android:id="@+id/HabCocina1"
+        android:layout_width="137dp"
+        android:layout_height="128dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="203dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <ImageView
+        android:id="@+id/HabPasillo3"
+        android:layout_width="58dp"
+        android:layout_height="108dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="429dp" />
+
+    <ImageView
+        android:id="@+id/HabPasillo2"
+        android:layout_width="137dp"
+        android:layout_height="141dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="278dp" />
+
+    <ImageView
+        android:id="@+id/HabSala"
+        android:layout_width="137dp"
+        android:layout_height="141dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="47dp" />
+
+    <ImageView
+        android:id="@+id/HabComedor"
+        android:layout_width="137dp"
+        android:layout_height="141dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="203dp"
+        tools:layout_editor_absoluteY="47dp" />
+
+    <ImageView
+        android:id="@+id/HabEstudio"
+        android:layout_width="72dp"
+        android:layout_height="68dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="121dp"
+        tools:layout_editor_absoluteY="429dp" />
+
+    <ImageView
+        android:id="@+id/HabPasillo1"
+        android:layout_width="47dp"
+        android:layout_height="72dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="146dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <ImageView
+        android:id="@+id/HabBano"
+        android:layout_width="78dp"
+        android:layout_height="72dp"
+        android:src="@android:color/transparent"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="196dp" />
+</android.support.constraint.ConstraintLayout>

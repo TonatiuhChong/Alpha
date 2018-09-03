@@ -4,58 +4,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="50dp"
     tools:context=".Fragments.ControlFragment">
 
-    <TextView
-        android:text="@string/Seleccionahabitación"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese el nombre del cuarto"/>
-
-    <Spinner
-        android:id="@+id/Habitaciones"
+    <LinearLayout
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese el nombre del cuarto"
+            android:text="@string/Seleccionahabitación" />
+
+
+        <Spinner
+        android:id="@+id/Habitaciones"
+        android:layout_width="104dp"
         android:layout_height="wrap_content"
         android:autofillHints="@string/Habitaciones">
 
     </Spinner>
+        <Spinner
+            android:id="@+id/modo"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/Habitaciones">
 
-    <EditText
-        android:id="@+id/TSensor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese el tipo de sensor"/>
+        </Spinner>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
     <TextView
         android:text="Seleccione el tipo de sensor"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
-    <Spinner
-        android:id="@+id/TSSensor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/Valor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese el valor de la variable"/>
+        <Spinner
+            android:id="@+id/TSensor"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/Habitaciones">
+
+        </Spinner>
+    </LinearLayout>
+
+
     <TextView
-        android:text="Valor del sensor"
+        android:paddingTop="50dp"
+        android:textFontWeight="30dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
-    <Spinner
-        android:id="@+id/VSensor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:text="Valor"
+        android:textAlignment="center" />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/VSensor"
+            android:layout_width="382dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/BtnActualizar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Actualizar"/>
+        android:text="Actualizar" />
 
     <TextView
         android:textAlignment="center"

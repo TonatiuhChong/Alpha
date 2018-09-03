@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="63" />
+                                                <entry key="scalingPercent" value="83" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,12 +33,13 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="839ca6" />
+                                      <entry key="backgroundColor" value="f8f827" />
+                                      <entry key="backgroundImage" value="C:\Users\tchong\Downloads\afternoon.jpg" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="C:\Users\tchong\Downloads\Cámara SLR-16-30-40-80-480px\icons8-cámara-slr-480.png" />
-                                      <entry key="foregroundLayerName" value="cameraregister" />
-                                      <entry key="outputName" value="morning" />
+                                      <entry key="foregroundImage" value="C:\Users\tchong\Downloads\afternoon.jpg" />
+                                      <entry key="foregroundLayerName" value="tarde" />
+                                      <entry key="outputName" value="tardes" />
+                                      <entry key="webIconShape" value="CIRCLE" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -52,6 +53,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>

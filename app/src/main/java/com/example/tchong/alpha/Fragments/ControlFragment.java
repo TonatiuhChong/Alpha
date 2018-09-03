@@ -7,15 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tchong.alpha.R;
-import com.example.tchong.alpha.Singletons.ValoresHab;
+import com.example.tchong.alpha.Singletons.DatosHabitacion;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,132 +30,168 @@ import java.util.Map;
 
 public class ControlFragment extends Fragment {
 
-    private EditText Child,Value,sens;
-    private String Hab,TSens,Valor,nino;
+    private EditText Child, Value, sens;
+    private String Hab, TSens, Valor, nino;
     private TextView Resultado;
     private Button btn;
-    private String[] rooms={"Cocina","Habitacion1","Sala","Estudio","Entrada","Comedor"};
-    private String[] Sense={"Presencia","Iluminación","Ambiental"};
-   // private String[] logicos={"true","false"};
-    private String [] analogicos={"Apagar","Bajo","Medio","Alto","Encendido Completo"};
+
+    private String[] rooms = {"Cocina", "Habitacion1", "Sala", "Estudio", "Entrada", "Comedor"};
+    private String[] logicos = {"true", "false"};
+    private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
+    private String[] Sense = {"Presencia", "Iluminación", "Ambiental"};
+        private String[] automatizacion = {"motor", "servo", "luz", "puerta", "ventana"};
+    private String[] modos = {"motor", "sensor"};
+    ArrayAdapter<String>  bb;
+    ArrayAdapter<String>  cc;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View Rec= inflater.inflate(R.layout.fragment_control,container,false);
+        View Rec = inflater.inflate(R.layout.fragment_control, container, false);
         //*******
-        Value= Rec.findViewById(R.id.Valor);
-        sens=  Rec.findViewById(R.id.TSensor);
-        Resultado=Rec.findViewById(R.id.Mirror);
-        btn=Rec.findViewById(R.id.BtnActualizar);
+        Resultado = Rec.findViewById(R.id.Mirror);
+        btn = Rec.findViewById(R.id.BtnActualizar);
 
         //Deteccion
-        Spinner spin=Rec.findViewById(R.id.Habitaciones);
-        Spinner spin2=Rec.findViewById(R.id.TSSensor);
-        Spinner spin3=Rec.findViewById(R.id.VSensor);
+        final Spinner spin = Rec.findViewById(R.id.Habitaciones);
+        final Spinner spin2 = Rec.findViewById(R.id.TSensor);
+        final Spinner spin3 = Rec.findViewById(R.id.VSensor);
+        final Spinner spin4 = Rec.findViewById(R.id.modo);
+
+
         //Adaptadores
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,rooms);
+        //tipo cambio
+        ArrayAdapter<String> dd = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, modos);
+        dd.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+        spin4.setAdapter(dd);
+        //habitacion
+        ArrayAdapter<String> aa = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, rooms);
         aa.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-        ArrayAdapter<String> bb = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,Sense);
-        bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-        ArrayAdapter cc = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,rooms);
-        cc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Spinner Adaptacion al spinner
-        HabitacionSpinnerClass hab1= new HabitacionSpinnerClass();
-        TipoSensorSpinnerClass hab2= new TipoSensorSpinnerClass();
-        VSensorSpinnerClass hab3= new VSensorSpinnerClass();
-        spin.setOnItemSelectedListener(hab1);
-        spin2.setOnItemSelectedListener(hab2);
-        spin3.setOnItemSelectedListener(hab3);
         spin.setAdapter(aa);
-        spin.setAdapter(bb);
-        spin.setAdapter(cc);
 
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                actualizar();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
+                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
+                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
+                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();//                      CAMBIA HABITACION
+                        break;
+                    case 3:
+                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
+                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
+                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
+                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spin.setAnimation(new Animation() {
+                    @Override
+                    public void reset() {
+                        super.reset();
+                    }
+                });
+
             }
         });
+
+
+      spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+          @Override
+          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+              switch (position) {
+                  case 0:
+                      DatosHabitacion.getInstance().setModo(modos[position]);
+                      bb = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, automatizacion);
+                      bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+                      spin2.setAdapter(bb);
+                      Toast.makeText(getActivity(), DatosHabitacion.getInstance().getModo(), Toast.LENGTH_SHORT).show();//                                                              CAMBIA MODO
+
+                      break;
+                  case 1:
+                      DatosHabitacion.getInstance().setModo(modos[position]);
+                      bb = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, Sense);
+                      bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+                      spin2.setAdapter(bb);
+                      Toast.makeText(getActivity(), DatosHabitacion.getInstance().getModo(), Toast.LENGTH_SHORT).show();
+                      break; }
+
+
+          }
+
+          @Override
+          public void onNothingSelected(AdapterView<?> parent) {
+
+          }
+      });
+
+        spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            private String[] logicos = {"true", "false"};
+//            private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        if (DatosHabitacion.getInstance().getModo()=="motor"){
+                            DatosHabitacion.getInstance().setTipo("logicos");
+                            cc = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, logicos);
+                            cc.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+                            spin3.setAdapter(cc);
+
+                        }else DatosHabitacion.getInstance().setTipo("analogicos");
+                        break;
+                    case 1:
+                        DatosHabitacion.getInstance().setModo(modos[position]);
+                        cc = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, Sense);
+                        cc.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+                        spin3.setAdapter(cc);
+                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getModo(), Toast.LENGTH_SHORT).show();
+                        break; }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
+
+
 
         return Rec;
     }
 
 
-    class HabitacionSpinnerClass implements AdapterView.OnItemSelectedListener{
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                ValoresHab.getInstance().setThab(rooms[position]);
-                break;
-            case 1:
-                ValoresHab.getInstance().setThab(rooms[position]);
-                break;
-            case 2:
-                ValoresHab.getInstance().setThab(rooms[position]);
-                break;
-            case 3:
-                ValoresHab.getInstance().setThab(rooms[position]);
-                break;
-            case 4:
-                ValoresHab.getInstance().setThab(rooms[position]);
-                break;
-            case 5:
-                ValoresHab.getInstance().setThab(rooms[position]);
-                break;
-            //Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_SHORT).show();
-        }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    }
-
-
-    class TipoSensorSpinnerClass implements AdapterView.OnItemSelectedListener{
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
-            case 0:
-                ValoresHab.getInstance().setTsensor(Sense[position]);
-                break;
-            case 1:
-                ValoresHab.getInstance().setTsensor(Sense[position]);
-                break;
-            case 2:
-                ValoresHab.getInstance().setTsensor(Sense[position]);
-                break;
-        }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    }
-
-    class  VSensorSpinnerClass implements  AdapterView.OnItemSelectedListener{
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    }
-
     private void actualizar() {
-        String Habitacion=ValoresHab.getInstance().getThab();
-        String TipoSensor=sens.getText().toString();
-        String valor=Value.getText().toString();
+        String Habitacion=DatosHabitacion.getInstance().getHabitacion();
+        String TipoSensor=DatosHabitacion.getInstance().getTipo();
+        String valor=DatosHabitacion.getInstance().getValor();
+
 
         if (TipoSensor.isEmpty()){
             sens.setError("Ingresa un tipo de sensor");
@@ -182,6 +220,7 @@ public class ControlFragment extends Fragment {
             }
         });}
     }
+
 
 
 }

@@ -34,8 +34,7 @@ public class Function {
 
             InputStream is;
             int status = connection.getResponseCode();
-            if (status != HttpURLConnection.HTTP_OK)
-                is = connection.getErrorStream();
+            if (status != HttpURLConnection.HTTP_OK)                is = connection.getErrorStream();
             else
                 is = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));

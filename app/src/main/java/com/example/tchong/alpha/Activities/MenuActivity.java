@@ -55,6 +55,7 @@ public class MenuActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -63,19 +64,10 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        ImageView fondito=new ImageView(MenuActivity.this);
-        fondito.setImageResource(R.mipmap.ic_morning);
+
         View hView =  navigationView.getHeaderView(0);
         LinearLayout nave= (LinearLayout) hView.findViewById(R.id.Wall);
-        nave.addView(fondito);
-        /*
-        Calendar now = Calendar.getInstance();
-        int a = now.get(Calendar.AM_PM);
-        if(a == Calendar.AM) {
 
-        }
-        else {}
-*/
 
         Usuario = (TextView) hView.findViewById(R.id.TxtUsuario);
         Email = (TextView) hView.findViewById(R.id.TxtEmail);
@@ -97,6 +89,22 @@ public class MenuActivity extends AppCompatActivity
         FragmentTransaction tx=getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.escenario,new ControlFragment());
         tx.commit();
+
+        ImageView fondito=new ImageView(MenuActivity.this);
+        fondito.setImageResource(R.mipmap.tarde);
+        fondito.setMaxWidth(200);
+        fondito.setMaxHeight(176);
+        nave.addView(fondito);
+        /*
+        Calendar now = Calendar.getInstance();
+        int a = now.get(Calendar.AM_PM);
+        if(a == Calendar.AM) {
+
+        }
+        else {}
+*/
+
+
 
     }
 
@@ -174,7 +182,9 @@ public class MenuActivity extends AppCompatActivity
             startActivity(new Intent(this,ConfiguracionActivity.class));
 
         } else if (id == R.id.Compartir) {
+
            // fm.beginTransaction().replace(R.id.escenario,new PlusOneFragment()).commit();
+
         } else if (id == R.id.Soporte) {
             //Toast.makeText(this, Integer.toString(horas), Toast.LENGTH_SHORT).show();
 
