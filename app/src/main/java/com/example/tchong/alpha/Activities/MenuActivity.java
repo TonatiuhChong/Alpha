@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.tchong.alpha.BlankFragment2;
 import com.example.tchong.alpha.Configurations.ConfiguracionActivity;
+import com.example.tchong.alpha.Fragments.BlankFragment;
 import com.example.tchong.alpha.Fragments.ControlFragment;
 import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Fragments.ReconFragment;
@@ -182,8 +184,7 @@ public class MenuActivity extends AppCompatActivity
             startActivity(new Intent(this,ConfiguracionActivity.class));
 
         } else if (id == R.id.Compartir) {
-
-           // fm.beginTransaction().replace(R.id.escenario,new PlusOneFragment()).commit();
+            fm.beginTransaction().replace(R.id.escenario,new BlankFragment2()).commit();
 
         } else if (id == R.id.Soporte) {
             //Toast.makeText(this, Integer.toString(horas), Toast.LENGTH_SHORT).show();

@@ -155,14 +155,6 @@
           }
         },
         {
-          "client_id": "987373912591-0g5pnjq6prq1cbkceq6fqlkggl9qdl66.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.tchong.alpha",
-            "certificate_hash": "390a6f3b3fb5e386ee0430134a227992a9883c3e"
-          }
-        },
-        {
           "client_id": "987373912591-ksp85diuc8rcj08f5p9ohabjd76aeicm.apps.googleusercontent.com",
           "client_type": 3
         }

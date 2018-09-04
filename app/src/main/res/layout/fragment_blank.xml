@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BlankFragment">
+    tools:context=".Fragments.BlankFragment">
+
+    <ImageView
+        android:id="@+id/HabSala"
+        android:layout_width="137dp"
+        android:layout_height="141dp"
+        android:clickable="true"
+        android:src="@android:color/transparent"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="47dp" />
 
 
     <ImageView
@@ -13,9 +23,11 @@
         android:layout_height="57dp"
         android:src="@android:color/transparent"
         tools:layout_editor_absoluteX="203dp"
-        tools:layout_editor_absoluteY="480dp" />
+        tools:layout_editor_absoluteY="480dp"
+        android:clickable="true"/>
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabCocina2"
         android:layout_width="136dp"
         android:layout_height="136dp"
@@ -24,6 +36,7 @@
         tools:layout_editor_absoluteY="330dp" />
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabCocina1"
         android:layout_width="137dp"
         android:layout_height="128dp"
@@ -32,6 +45,7 @@
         tools:layout_editor_absoluteY="196dp" />
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabPasillo3"
         android:layout_width="58dp"
         android:layout_height="108dp"
@@ -40,6 +54,7 @@
         tools:layout_editor_absoluteY="429dp" />
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabPasillo2"
         android:layout_width="137dp"
         android:layout_height="141dp"
@@ -47,15 +62,10 @@
         tools:layout_editor_absoluteX="56dp"
         tools:layout_editor_absoluteY="278dp" />
 
-    <ImageView
-        android:id="@+id/HabSala"
-        android:layout_width="137dp"
-        android:layout_height="141dp"
-        android:src="@android:color/transparent"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="47dp" />
+
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabComedor"
         android:layout_width="137dp"
         android:layout_height="141dp"
@@ -64,6 +74,7 @@
         tools:layout_editor_absoluteY="47dp" />
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabEstudio"
         android:layout_width="72dp"
         android:layout_height="68dp"
@@ -72,6 +83,7 @@
         tools:layout_editor_absoluteY="429dp" />
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabPasillo1"
         android:layout_width="47dp"
         android:layout_height="72dp"
@@ -80,10 +92,20 @@
         tools:layout_editor_absoluteY="196dp" />
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/HabBano"
         android:layout_width="78dp"
         android:layout_height="72dp"
         android:src="@android:color/transparent"
         tools:layout_editor_absoluteX="56dp"
         tools:layout_editor_absoluteY="196dp" />
+
+    <TextView
+        android:id="@+id/textoBienvenidaControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toca alguna habitacaion para ver sensores."
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>

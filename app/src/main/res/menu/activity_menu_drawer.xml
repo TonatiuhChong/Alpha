@@ -17,7 +17,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/Sensores" />
 
-    </group>
+
 
     <item android:title="Herramientas">
         <menu>
@@ -35,5 +35,6 @@
                 android:title="@string/Soporte" />
         </menu>
     </item>
+    </group>
 
 </menu>

@@ -180,9 +180,6 @@ public class ControlFragment extends Fragment {
 
 
 
-
-
-
         return Rec;
     }
 
