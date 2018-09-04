@@ -186,6 +186,9 @@ public class MenuActivity extends AppCompatActivity
         } else if (id == R.id.Compartir) {
             fm.beginTransaction().replace(R.id.escenario,new BlankFragment()).commit();
 
+
+
+
         } else if (id == R.id.Soporte) {
             //Toast.makeText(this, Integer.toString(horas), Toast.LENGTH_SHORT).show();
 
@@ -202,53 +205,6 @@ public class MenuActivity extends AppCompatActivity
 
     }
 
-
-    class  Clima extends AsyncTask<String,Void,String>{
-
-
-        @Override
-        protected String doInBackground(String... args) {
-            String xml = "popo";
-            return xml;
-        }
-
-        @Override
-        protected void onPostExecute(String xml) {
-            Double temp=0.0;
-            try {
-                JSONObject json = new JSONObject(xml);
-                if (json != null) {
-                    JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-                    JSONObject main = json.getJSONObject("main");
-                    DateFormat df = DateFormat.getDateTimeInstance();
-                     temp=main.getDouble("temp");
-
-                    //cityField.setText(json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country"));
-                    //detailsField.setText(details.getString("description").toUpperCase(Locale.US));
-
-                    //humidity_field.setText("Humidity: " + main.getString("humidity") + "%");
-                    //pressure_field.setText("Pressure: " + main.getString("pressure") + " hPa");
-                    //updatedField.setText(df.format(new Date(json.getLong("dt") * 1000)));
-                    //weatherIcon.setText(Html.fromHtml(Function.setWeatherIcon(details.getInt("id"),
-                           // json.getJSONObject("sys").getLong("sunrise") * 1000,
-                            //json.getJSONObject("sys").getLong("sunset") * 1000)));
-
-                    //loader.setVisibility(View.GONE);
-
-                }
-            } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Error, Check City", Toast.LENGTH_SHORT).show();
-            }
-            if(temp<25.0){
-
-            }
-            if(temp<25.0){}
-
-
-
-
-        }
-    }
 
 
 
