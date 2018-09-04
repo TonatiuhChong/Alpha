@@ -24,16 +24,16 @@ public class BlankFragment extends Fragment {
         View Rec = inflater.inflate(R.layout.fragment_control, container, false);
 
 
-       // sala= Rec.findViewById(R.id.HabSala);
-        comedor=Rec.findViewById(R.id.HabComedor);
-        cocina1=Rec.findViewById(R.id.HabCocina1);
-        cocina2=Rec.findViewById(R.id.HabCocina2);
-        servicio=Rec.findViewById(R.id.HabServicio);
-        bano=Rec.findViewById(R.id.HabBano);
-        pasillo1=Rec.findViewById(R.id.HabPasillo1);
-        pasillo2=Rec.findViewById(R.id.HabPasillo2);
-        pasillo3=Rec.findViewById(R.id.HabPasillo3);
-        estudio=Rec.findViewById(R.id.HabEstudio);
+//       // sala= Rec.findViewById(R.id.HabSala);
+//        comedor=Rec.findViewById(R.id.HabComedor);
+//        cocina1=Rec.findViewById(R.id.HabCocina1);
+//        cocina2=Rec.findViewById(R.id.HabCocina2);
+//        servicio=Rec.findViewById(R.id.HabServicio);
+//        bano=Rec.findViewById(R.id.HabBano);
+//        pasillo1=Rec.findViewById(R.id.HabPasillo1);
+//        pasillo2=Rec.findViewById(R.id.HabPasillo2);
+//        pasillo3=Rec.findViewById(R.id.HabPasillo3);
+//        estudio=Rec.findViewById(R.id.HabEstudio);
 
 
 

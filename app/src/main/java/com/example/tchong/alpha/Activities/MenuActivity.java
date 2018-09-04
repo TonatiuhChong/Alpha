@@ -184,7 +184,7 @@ public class MenuActivity extends AppCompatActivity
             startActivity(new Intent(this,ConfiguracionActivity.class));
 
         } else if (id == R.id.Compartir) {
-            fm.beginTransaction().replace(R.id.escenario,new BlankFragment2()).commit();
+            fm.beginTransaction().replace(R.id.escenario,new BlankFragment()).commit();
 
         } else if (id == R.id.Soporte) {
             //Toast.makeText(this, Integer.toString(horas), Toast.LENGTH_SHORT).show();
