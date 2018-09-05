@@ -1,7 +1,6 @@
 package com.example.tchong.alpha.Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.tchong.alpha.BlankFragment2;
 import com.example.tchong.alpha.Configurations.ConfiguracionActivity;
 import com.example.tchong.alpha.Fragments.BlankFragment;
 import com.example.tchong.alpha.Fragments.ControlFragment;
@@ -37,11 +35,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
-
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
     private TextView Usuario, Email;
@@ -55,8 +48,6 @@ public class MenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -175,7 +166,6 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.ReconocimientoFacial) {
             // Handle the camera action
             fm.beginTransaction().replace(R.id.escenario, new ReconFragment()).commit();
-//            startActivity(new Intent(this,ReconocimientoActivity.class));
         } else if (id == R.id.ControlDelHogar) {
             fm.beginTransaction().replace(R.id.escenario, new ControlFragment()).commit();
         } else if (id == R.id.Sensores) {
