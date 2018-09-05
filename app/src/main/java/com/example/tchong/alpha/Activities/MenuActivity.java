@@ -162,7 +162,6 @@ public class MenuActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         FragmentManager fm= getSupportFragmentManager();
         int id = item.getItemId();
-
         if (id == R.id.ReconocimientoFacial) {
             // Handle the camera action
             fm.beginTransaction().replace(R.id.escenario, new ReconFragment()).commit();

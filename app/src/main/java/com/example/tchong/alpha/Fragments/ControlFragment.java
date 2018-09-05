@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class ControlFragment extends Fragment {
     private String Hab, TSens, Valor, nino;
     private TextView Resultado;
     private Button btn;
+    private ImageView sala,comedor, cocina1,cocina2,estudio,pasillo1,pasillo2,pasillo3,bano,servicio;
 
     private String[] rooms = {"Cocina", "Habitacion1", "Sala", "Estudio", "Entrada", "Comedor"};
     private String[] logicos = {"true", "false"};
@@ -54,12 +56,24 @@ public class ControlFragment extends Fragment {
         Resultado = Rec.findViewById(R.id.Mirror);
         btn = Rec.findViewById(R.id.BtnActualizar);
 
+        //********Habitaciones
+        sala=Rec.findViewById(R.id.ImgHabSala);
+        comedor=Rec.findViewById(R.id.ImgHabComedor);
+        cocina1=Rec.findViewById(R.id.ImgHabCocina1);
+        cocina2=Rec.findViewById(R.id.ImgHabCocina2);
+        estudio=Rec.findViewById(R.id.ImgHabEstudio);
+        pasillo1=Rec.findViewById(R.id.ImgHabPasillo1);
+        pasillo2=Rec.findViewById(R.id.ImgHabPasillo2);
+        pasillo3=Rec.findViewById(R.id.ImgHabPasillo3);
+        bano=Rec.findViewById(R.id.ImgHabBano);
+        servicio=Rec.findViewById(R.id.ImgHabServicio);
+
+
         //Deteccion
         final Spinner spin = Rec.findViewById(R.id.Habitaciones);
         final Spinner spin2 = Rec.findViewById(R.id.TSensor);
         final Spinner spin3 = Rec.findViewById(R.id.VSensor);
         final Spinner spin4 = Rec.findViewById(R.id.modo);
-
 
         //Adaptadores
         //tipo cambio
@@ -78,27 +92,21 @@ public class ControlFragment extends Fragment {
                 switch (position) {
                     case 0:
                         DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();//                      CAMBIA HABITACION
                         break;
                     case 3:
                         DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
                         DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
                         break;
                     case 5:
                         DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getHabitacion(), Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -125,7 +133,6 @@ public class ControlFragment extends Fragment {
                       bb = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, automatizacion);
                       bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
                       spin2.setAdapter(bb);
-                      Toast.makeText(getActivity(), DatosHabitacion.getInstance().getModo(), Toast.LENGTH_SHORT).show();//                                                              CAMBIA MODO
 
                       break;
                   case 1:
@@ -133,7 +140,6 @@ public class ControlFragment extends Fragment {
                       bb = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, Sense);
                       bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
                       spin2.setAdapter(bb);
-                      Toast.makeText(getActivity(), DatosHabitacion.getInstance().getModo(), Toast.LENGTH_SHORT).show();
                       break; }
 
 
@@ -165,7 +171,7 @@ public class ControlFragment extends Fragment {
                         cc = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, Sense);
                         cc.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
                         spin3.setAdapter(cc);
-                        Toast.makeText(getActivity(), DatosHabitacion.getInstance().getModo(), Toast.LENGTH_SHORT).show();
+
                         break; }
 
 
@@ -176,6 +182,71 @@ public class ControlFragment extends Fragment {
 
             }
         });
+
+
+        sala.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Sala", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        comedor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "comedor", Toast.LENGTH_SHORT).show();
+            }
+        });
+        cocina1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "cocina", Toast.LENGTH_SHORT).show();
+            }
+        });
+        cocina2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "cocina", Toast.LENGTH_SHORT).show();
+            }
+        });
+        servicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "servicio", Toast.LENGTH_SHORT).show();
+            }
+        });
+        bano.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "bano", Toast.LENGTH_SHORT).show();
+            }
+        });
+        pasillo1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "pasillo", Toast.LENGTH_SHORT).show();
+            }
+        });
+        estudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "estudio", Toast.LENGTH_SHORT).show();
+            }
+        });
+        pasillo2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "pasillo", Toast.LENGTH_SHORT).show();
+            }
+        });
+        pasillo3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "pasillo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
 
 
