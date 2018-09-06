@@ -1,5 +1,6 @@
 package com.example.tchong.alpha.Fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Singletons.DatosHabitacion;
+import com.example.tchong.alpha.Userdialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -204,6 +206,15 @@ public class ControlFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Sala", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder m= new AlertDialog.Builder(getActivity());
+
+                LayoutInflater inflador = getActivity().getLayoutInflater();
+                View dialogoLoco = inflador.inflate(R.layout.dialogcasa,null);
+                m.setView(dialogoLoco);
+
+                m.setTitle("fcac")
+                        .setMessage("dubwdvbn");
+                m.show();
             }
         });
 
