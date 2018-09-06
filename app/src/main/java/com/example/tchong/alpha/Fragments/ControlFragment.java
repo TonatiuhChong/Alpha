@@ -36,7 +36,7 @@ public class ControlFragment extends Fragment {
     private TextView Resultado;
     private Button btn;
     private ImageView sala,comedor, cocina1,cocina2,estudio,pasillo1,pasillo2,pasillo3,bano,servicio;
-
+    private  EditText EditHab,EditSense,EditValue;
     private String[] rooms = {"Cocina", "Habitacion1", "Sala", "Estudio", "Entrada", "Comedor"};
     private String[] logicos = {"true", "false"};
     private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
@@ -53,7 +53,7 @@ public class ControlFragment extends Fragment {
 
         View Rec = inflater.inflate(R.layout.fragment_control, container, false);
         //*******
-        Resultado = Rec.findViewById(R.id.Mirror);
+//        Resultado = Rec.findViewById(R.id.Mirror);
         btn = Rec.findViewById(R.id.BtnActualizar);
 
         //********Habitaciones
@@ -67,6 +67,22 @@ public class ControlFragment extends Fragment {
         pasillo3=Rec.findViewById(R.id.ImgHabPasillo3);
         bano=Rec.findViewById(R.id.ImgHabBano);
         servicio=Rec.findViewById(R.id.ImgHabServicio);
+
+        //*******EditText
+        EditHab=Rec.findViewById(R.id.EditHabitacion);
+        EditSense=Rec.findViewById(R.id.EditSensor);
+        EditValue=Rec.findViewById(R.id.EditValor);
+        //**************
+
+
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualizar();
+            }
+        });
 
 
         //Deteccion
@@ -256,21 +272,31 @@ public class ControlFragment extends Fragment {
 
 
     private void actualizar() {
-        String Habitacion=DatosHabitacion.getInstance().getHabitacion();
-        String TipoSensor=DatosHabitacion.getInstance().getTipo();
-        String valor=DatosHabitacion.getInstance().getValor();
+        String Habitacion=EditHab.getText().toString();
+        String TipoSensor=EditSense.getText().toString();
+        String valor=EditValue.getText().toString();
 
-
+        if (Habitacion.isEmpty()){
+            EditHab.setError("Ingresa o selecciona una habitacion");
+            EditHab.requestFocus();
+        }
         if (TipoSensor.isEmpty()){
-            sens.setError("Ingresa un tipo de sensor");
-            sens.requestFocus();
+            EditSense.setError("Ingresa un tipo de sensor");
+            EditSense.requestFocus();
         }
         if (valor.isEmpty()){
-            Value.setError("Ingresa el valor del sensor");
-            Value.requestFocus();
+            EditValue.setError("Ingresa el valor del sensor");
+            EditValue.requestFocus();
         }
+
         else{
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Habitaciones").child(Habitacion);
+
+            DatosHabitacion.getInstance().setHabitacion(Habitacion);
+            DatosHabitacion.getInstance().setTipo(TipoSensor);
+            DatosHabitacion.getInstance().setValor(valor);
+
+
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Habitaciones").child(DatosHabitacion.getInstance().getHabitacion());
         Map<String,Object> map= new HashMap<String, Object>();
         map.put(TipoSensor,valor);
         ref.updateChildren(map);
@@ -278,8 +304,13 @@ public class ControlFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Resultado.setText(dataSnapshot.getValue().toString());
-                nino=dataSnapshot.getValue().toString();
+                //Resultado.setText(dataSnapshot.getValue().toString());
+                //nino=dataSnapshot.getValue().toString();
+                Toast.makeText(getActivity(), "Dato Actualizado", Toast.LENGTH_SHORT).show();
+                EditHab.getText().clear();
+                EditSense.getText().clear();
+                EditValue.getText().clear();
+
             }
 
             @Override

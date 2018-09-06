@@ -173,13 +173,10 @@ public class MenuActivity extends AppCompatActivity
             startActivity(new Intent(this,ConfiguracionActivity.class));
 
         } else if (id == R.id.Compartir) {
-            fm.beginTransaction().replace(R.id.escenario,new BlankFragment()).commit();
-
-
-
+            Toast.makeText(this, "Esta Página Sigue en Desarrollo", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.Soporte) {
-            //Toast.makeText(this, Integer.toString(horas), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Esta Página Sigue en Desarrollo", Toast.LENGTH_SHORT).show();
 
 
         }

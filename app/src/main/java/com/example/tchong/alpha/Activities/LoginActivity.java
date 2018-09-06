@@ -540,8 +540,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        super.onStart();
 //
 //        if(mAuth!=null){
-//            finish();
-//            startActivity(new Intent(this,MenuActivity.class));
+//            if(mAuth.getCurrentUser().getDisplayName()!=null){
+//                finish();
+//                startActivity(new Intent(this,RegisterActivity.class));
+//            }
+//            else {
+//                finish();
+//                startActivity(new Intent(this,MenuActivity.class));
+//            }
+//
 //        }
 //    }
 }
