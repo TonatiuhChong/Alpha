@@ -1,9 +1,11 @@
 package com.example.tchong.alpha.Fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +32,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -43,15 +50,44 @@ public class ControlFragment extends Fragment {
     private String[] logicos = {"true", "false"};
     private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
     private String[] Sense = {"Presencia", "Iluminación", "Ambiental"};
-        private String[] automatizacion = {"motor", "servo", "luz", "puerta", "ventana"};
+    private String[] automatizacion = {"motor", "servo", "luz", "puerta", "ventana"};
+    private String[] countries = new String[] {
+            "Switch",
+            "Presencia",
+            "Ambiental",
+            "Puerta",
+            "Ventana",
+            "Iluminación"
+    };
+    int[] flags = new int[]{
+            R.drawable.corriente,
+            //here you have to give image name which you already pasted it in /res/drawable-hdpi/
+            R.drawable.presencia,
+            R.drawable.ambiental,
+            R.drawable.puerta,
+            R.drawable.ventana,
+            R.drawable.iluminacion
+    };
     private String[] modos = {"motor", "sensor"};
     ArrayAdapter<String>  bb;
     ArrayAdapter<String>  cc;
 
+    List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+//        for(int i=0;i<10;i++){
+//            HashMap<String> hm = new HashMap<String>();
+//            hm.put("txt", "Country : " + countries[i]);
+//            hm.put("flag", Integer.toString(flags[i]) );
+//            aList.add(hm);
+//        }
+//        String[] from = { "txt","flag" };
+//        int[] to = { R.id.TextAcciones,R.id.ImgAcciones};
+//        final SimpleAdapter adap =new SimpleAdapter(getActivity(),aList,R.layout.listviewacciones,from,to);
+
 
         View Rec = inflater.inflate(R.layout.fragment_control, container, false);
         //*******
@@ -75,10 +111,6 @@ public class ControlFragment extends Fragment {
         EditSense=Rec.findViewById(R.id.EditSensor);
         EditValue=Rec.findViewById(R.id.EditValor);
         //**************
-
-
-
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,71 +237,63 @@ public class ControlFragment extends Fragment {
         sala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Sala", Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder m= new AlertDialog.Builder(getActivity());
+                dialogos();
 
-                LayoutInflater inflador = getActivity().getLayoutInflater();
-                View dialogoLoco = inflador.inflate(R.layout.dialogcasa,null);
-                m.setView(dialogoLoco);
-
-                m.setTitle("fcac")
-                        .setMessage("dubwdvbn");
-                m.show();
             }
         });
 
         comedor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "comedor", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         cocina1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "cocina", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         cocina2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "cocina", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         servicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "servicio", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         bano.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "bano", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         pasillo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "pasillo", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         estudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "estudio", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         pasillo2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "pasillo", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
         pasillo3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "pasillo", Toast.LENGTH_SHORT).show();
+                dialogos();
             }
         });
 
@@ -279,6 +303,27 @@ public class ControlFragment extends Fragment {
 
 
         return Rec;
+    }
+
+    private void dialogos() {
+        final Dialog dialog= new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialogcasa);
+        dialog.setTitle("Title...");
+        TextView text = (TextView) dialog.findViewById(R.id.text);
+        text.setText("Android custom dialog example!");
+//                ListView pp=(ListView)dialog.findViewById(R.id.listAcciones);
+//
+//                pp.setAdapter(adap);
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
 
