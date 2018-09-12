@@ -230,7 +230,7 @@ public class ControlFragment extends Fragment{
             builder.setAutoCancel(true);
             builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_notifications_black_24dp));
             builder.setContentTitle("Cambio de Valor");
-            builder.setContentText("Se ha actualizado el valor " + DatosHabitacion.getInstance().getHabitacion() +" de la acción" +DatosHabitacion.getInstance().getTipo() +" con el valor de " +DatosHabitacion.getInstance().getValor());
+            builder.setContentText("Se ha actualizado en " + DatosHabitacion.getInstance().getHabitacion() +" de la acción " +DatosHabitacion.getInstance().getTipo() +" con el valor de " +DatosHabitacion.getInstance().getValor());
             builder.setSubText("Presiona para abrir el mapa");
 
             NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(
