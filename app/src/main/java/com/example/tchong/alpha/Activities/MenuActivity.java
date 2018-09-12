@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.tchong.alpha.Configurations.ConfiguracionActivity;
 import com.example.tchong.alpha.Fragments.BlankFragment;
 import com.example.tchong.alpha.Fragments.ControlFragment;
@@ -68,8 +69,8 @@ public class MenuActivity extends AppCompatActivity
 
         Usuario.setText(Singleton.getInstance().getUser());
         Email.setText(Singleton.getInstance().getEmail());
-        Glide.with(this).load(Singleton.getInstance().getFoto()).into(Fusuario);
-
+        //Glide.with(this).load(Singleton.getInstance().getFoto()).into(Fusuario);
+        Glide.with(this).load(Singleton.getInstance().getFoto()).apply(RequestOptions.circleCropTransform()).into(Fusuario);
 
         GoogleSignInOptions gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

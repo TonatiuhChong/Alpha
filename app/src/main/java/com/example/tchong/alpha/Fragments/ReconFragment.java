@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Singletons.Singleton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,8 +63,7 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
         NombreU.setText(Singleton.getInstance().getUser());
         EmailU.setText(Singleton.getInstance().getEmail());
         PerfilU.setText(Singleton.getInstance().getPassword());
-        Glide.with(this).load(Singleton.getInstance().getFoto()).into(ImgUSer);
-
+        Glide.with(this).load(Singleton.getInstance().getFoto()).apply(RequestOptions.circleCropTransform()).into(ImgUSer);
 
         FloatingActionButton fab = (FloatingActionButton) Rec.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
