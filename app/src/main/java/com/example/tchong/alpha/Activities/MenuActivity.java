@@ -3,6 +3,7 @@ package com.example.tchong.alpha.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -174,10 +175,11 @@ public class MenuActivity extends AppCompatActivity
             startActivity(new Intent(this,ConfiguracionActivity.class));
 
         } else if (id == R.id.Compartir) {
-            Toast.makeText(this, "Esta Página Sigue en Desarrollo", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(getApplicationContext(), "Esta Página Sigue en Desarrollo", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.Soporte) {
-            Toast.makeText(this, "Esta Página Sigue en Desarrollo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Esta Página Sigue en Desarrollo", Toast.LENGTH_SHORT).show();
 
 
         }

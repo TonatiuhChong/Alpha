@@ -99,6 +99,9 @@ public class ControlFragment extends Fragment{
         EditHab=Rec.findViewById(R.id.EditHabitacion);
         EditSense=Rec.findViewById(R.id.EditSensor);
         EditValue=Rec.findViewById(R.id.EditValor);
+        EditHab.setText("cocina");
+        EditSense.setText("notif");
+
         //**************
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
