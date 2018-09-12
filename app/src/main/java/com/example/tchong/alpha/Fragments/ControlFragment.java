@@ -2,11 +2,17 @@ package com.example.tchong.alpha.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tchong.alpha.Activities.MenuActivity;
 import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Singletons.DatosHabitacion;
 import com.example.tchong.alpha.Userdialog;
@@ -37,12 +44,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.support.v4.content.ContextCompat.getSystemService;
 
-public class ControlFragment extends Fragment {
 
-    private EditText Child, Value, sens;
-    private String Hab, TSens, Valor, nino;
-    private TextView Resultado;
+public class ControlFragment extends Fragment{
+
+    private ListView list;
     private Button btn;
     private ImageView sala,comedor, cocina1,cocina2,estudio,pasillo1,pasillo2,pasillo3,bano,servicio;
     private  EditText EditHab,EditSense,EditValue;
@@ -51,7 +58,7 @@ public class ControlFragment extends Fragment {
     private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
     private String[] Sense = {"Presencia", "Iluminación", "Ambiental"};
     private String[] automatizacion = {"motor", "servo", "luz", "puerta", "ventana"};
-    private String[] countries = new String[] {
+    private String[] countries = {
             "Switch",
             "Presencia",
             "Ambiental",
@@ -59,7 +66,7 @@ public class ControlFragment extends Fragment {
             "Ventana",
             "Iluminación"
     };
-    int[] flags = new int[]{
+    Integer[] flags = {
             R.drawable.corriente,
             //here you have to give image name which you already pasted it in /res/drawable-hdpi/
             R.drawable.presencia,
@@ -68,32 +75,14 @@ public class ControlFragment extends Fragment {
             R.drawable.ventana,
             R.drawable.iluminacion
     };
-    private String[] modos = {"motor", "sensor"};
-    ArrayAdapter<String>  bb;
-    ArrayAdapter<String>  cc;
-
-    List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-//        for(int i=0;i<10;i++){
-//            HashMap<String> hm = new HashMap<String>();
-//            hm.put("txt", "Country : " + countries[i]);
-//            hm.put("flag", Integer.toString(flags[i]) );
-//            aList.add(hm);
-//        }
-//        String[] from = { "txt","flag" };
-//        int[] to = { R.id.TextAcciones,R.id.ImgAcciones};
-//        final SimpleAdapter adap =new SimpleAdapter(getActivity(),aList,R.layout.listviewacciones,from,to);
-
-
         View Rec = inflater.inflate(R.layout.fragment_control, container, false);
         //*******
 //        Resultado = Rec.findViewById(R.id.Mirror);
         btn = Rec.findViewById(R.id.BtnActualizar);
-
         //********Habitaciones
         sala=Rec.findViewById(R.id.ImgHabSala);
         comedor=Rec.findViewById(R.id.ImgHabComedor);
@@ -117,123 +106,7 @@ public class ControlFragment extends Fragment {
                 actualizar();
             }
         });
-
-
-        //Deteccion
-        final Spinner spin = Rec.findViewById(R.id.Habitaciones);
-        final Spinner spin2 = Rec.findViewById(R.id.TSensor);
-        final Spinner spin3 = Rec.findViewById(R.id.VSensor);
-        final Spinner spin4 = Rec.findViewById(R.id.modo);
-
-        //Adaptadores
-        //tipo cambio
-        ArrayAdapter<String> dd = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, modos);
-        dd.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-        spin4.setAdapter(dd);
-        //habitacion
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, rooms);
-        aa.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-        spin.setAdapter(aa);
-
-
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        break;
-                    case 1:
-                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        break;
-                    case 2:
-                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        break;
-                    case 3:
-                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        break;
-                    case 4:
-                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        break;
-                    case 5:
-                        DatosHabitacion.getInstance().setHabitacion(rooms[position]);
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                spin.setAnimation(new Animation() {
-                    @Override
-                    public void reset() {
-                        super.reset();
-                    }
-                });
-
-            }
-        });
-
-
-      spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-          @Override
-          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-              switch (position) {
-                  case 0:
-                      DatosHabitacion.getInstance().setModo(modos[position]);
-                      bb = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, automatizacion);
-                      bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-                      spin2.setAdapter(bb);
-
-                      break;
-                  case 1:
-                      DatosHabitacion.getInstance().setModo(modos[position]);
-                      bb = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, Sense);
-                      bb.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-                      spin2.setAdapter(bb);
-                      break; }
-
-
-          }
-
-          @Override
-          public void onNothingSelected(AdapterView<?> parent) {
-
-          }
-      });
-
-        spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            private String[] logicos = {"true", "false"};
-//            private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        if (DatosHabitacion.getInstance().getModo()=="motor"){
-                            DatosHabitacion.getInstance().setTipo("logicos");
-                            cc = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, logicos);
-                            cc.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-                            spin3.setAdapter(cc);
-
-                        }else DatosHabitacion.getInstance().setTipo("analogicos");
-                        break;
-                    case 1:
-                        DatosHabitacion.getInstance().setModo(modos[position]);
-                        cc = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, Sense);
-                        cc.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
-                        spin3.setAdapter(cc);
-
-                        break; }
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
+        //DIALOGS EMERGENTES
         sala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -241,7 +114,6 @@ public class ControlFragment extends Fragment {
 
             }
         });
-
         comedor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,11 +169,6 @@ public class ControlFragment extends Fragment {
             }
         });
 
-
-
-
-
-
         return Rec;
     }
 
@@ -311,11 +178,7 @@ public class ControlFragment extends Fragment {
         dialog.setTitle("Title...");
         TextView text = (TextView) dialog.findViewById(R.id.text);
         text.setText("Android custom dialog example!");
-//                ListView pp=(ListView)dialog.findViewById(R.id.listAcciones);
-//
-//                pp.setAdapter(adap);
         Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-        // if button is clicked, close the custom dialog
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -356,16 +219,35 @@ public class ControlFragment extends Fragment {
         Map<String,Object> map= new HashMap<String, Object>();
         map.put(TipoSensor,valor);
         ref.updateChildren(map);
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://ideorreas.mx/inmotica-domotica/"));
 
-        ref.addValueEventListener(new ValueEventListener() {
+            PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
+            builder.setContentIntent(pendingIntent);
+
+            builder.setSmallIcon(R.drawable.ambiental);
+            builder.setAutoCancel(true);
+            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_notifications_black_24dp));
+            builder.setContentTitle("Cambio de Valor");
+            builder.setContentText("Se ha actualizado el valor " + DatosHabitacion.getInstance().getHabitacion() +" de la acción" +DatosHabitacion.getInstance().getTipo() +" con el valor de " +DatosHabitacion.getInstance().getValor());
+            builder.setSubText("Presiona para abrir el mapa");
+
+            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(
+                    getActivity().NOTIFICATION_SERVICE);
+            notificationManager.notify(1, builder.build());
+
+
+            ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Resultado.setText(dataSnapshot.getValue().toString());
                 //nino=dataSnapshot.getValue().toString();
-                Toast.makeText(getActivity(), "Dato Actualizado", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Dato Actualizado", Toast.LENGTH_SHORT).show();
                 EditHab.getText().clear();
                 EditSense.getText().clear();
                 EditValue.getText().clear();
+
 
             }
 
