@@ -180,7 +180,7 @@ public class ControlFragment extends Fragment{
         dialog.setContentView(R.layout.dialogcasa);
         dialog.setTitle("Title...");
         TextView text = (TextView) dialog.findViewById(R.id.text);
-        text.setText("Android custom dialog example!");
+        text.setText(DatosHabitacion.getInstance().getHabitacion());
         Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override

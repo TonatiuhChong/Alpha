@@ -3,9 +3,9 @@ package com.example.tchong.alpha.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.tchong.alpha.Configurations.ConfiguracionActivity;
-import com.example.tchong.alpha.Fragments.BlankFragment;
 import com.example.tchong.alpha.Fragments.ControlFragment;
 import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Fragments.ReconFragment;
@@ -37,12 +36,16 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
     private TextView Usuario, Email;
     private ImageView Fusuario;
     private GoogleApiClient googleApiClient;
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private static final String TAG = "MenuActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,19 +88,20 @@ public class MenuActivity extends AppCompatActivity
         tx.replace(R.id.escenario,new ControlFragment());
         tx.commit();
 
-        ImageView fondito=new ImageView(MenuActivity.this);
-        fondito.setImageResource(R.mipmap.tarde);
-        fondito.setMaxWidth(200);
-        fondito.setMaxHeight(176);
-        nave.addView(fondito);
-        /*
+
+
         Calendar now = Calendar.getInstance();
         int a = now.get(Calendar.AM_PM);
-        if(a == Calendar.AM) {
+        Date HrActual= Calendar.getInstance().getTime();
+//        Toast.makeText(this, HrActual.toString(), Toast.LENGTH_SHORT).show();
+        Log.d(TAG,HrActual.toString());
+//        if(a == ) {
+//            nave.setBackground(this.getResources().getDrawable(R.drawable.morning));
+//        }
+//        else {
+//            nave.setBackground(this.getResources().getDrawable(R.drawable.night));
+//        }
 
-        }
-        else {}
-*/
 
 
 

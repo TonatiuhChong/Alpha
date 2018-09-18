@@ -31,8 +31,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -72,6 +74,14 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
 
                 Snackbar.make(view, "Acerquese a la camara para activar el reconocimiento Facial", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Boolean VActivacion=Boolean.TRUE;
+                DatabaseReference ActivarCamara= FirebaseDatabase.getInstance().getReference().child("Facial");
+                Map<String,Object> map= new HashMap<String, Object>();
+                map.put("Activacion",!VActivacion);
+                ActivarCamara.updateChildren(map);
+                FragmentManager tr= getActivity().getSupportFragmentManager();
+                tr.beginTransaction().replace(R.id.escenario, new SensorFragment()).commit();
+
 
 
             }
