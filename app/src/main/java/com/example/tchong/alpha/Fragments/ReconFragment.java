@@ -80,7 +80,7 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
                 map.put("Activacion",!VActivacion);
                 ActivarCamara.updateChildren(map);
                 FragmentManager tr= getActivity().getSupportFragmentManager();
-                tr.beginTransaction().replace(R.id.escenario, new SensorFragment()).commit();
+                tr.beginTransaction().replace(R.id.escenario, new RaspberryFragment()).commit();
 
 
 
