@@ -72,13 +72,13 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                VActivacion=!VActivacion;
                 Snackbar.make(view, "Acerquese a la camara para activar el reconocimiento Facial", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
                 DatabaseReference ActivarCamara= FirebaseDatabase.getInstance().getReference().child("Facial");
                 Map<String,Object> map= new HashMap<String, Object>();
-                map.put("Activacion",!VActivacion);
+                map.put("Activacion",VActivacion);
                 ActivarCamara.updateChildren(map);
                 FragmentManager tr= getActivity().getSupportFragmentManager();
                 tr.beginTransaction().replace(R.id.escenario, new RaspberryFragment()).commit();
