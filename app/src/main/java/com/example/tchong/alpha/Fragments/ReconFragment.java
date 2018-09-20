@@ -45,6 +45,7 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
     private ListView lista;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> rooms= new ArrayList<>();
+    public  Boolean VActivacion=Boolean.TRUE;
 
     @Nullable
     @Override
@@ -74,7 +75,7 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
 
                 Snackbar.make(view, "Acerquese a la camara para activar el reconocimiento Facial", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Boolean VActivacion=Boolean.TRUE;
+
                 DatabaseReference ActivarCamara= FirebaseDatabase.getInstance().getReference().child("Facial");
                 Map<String,Object> map= new HashMap<String, Object>();
                 map.put("Activacion",!VActivacion);

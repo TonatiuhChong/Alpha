@@ -29,7 +29,10 @@
             android:text="@string/TotalSensores" />
 
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <TextView
         android:id="@+id/textView2"
         style="@android:style/Widget.TextView.SpinnerItem"
