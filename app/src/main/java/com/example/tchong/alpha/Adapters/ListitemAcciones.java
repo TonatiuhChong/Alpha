@@ -1,4 +1,4 @@
-package com.example.tchong.alpha;
+package com.example.tchong.alpha.Adapters;
 
 public class ListitemAcciones {
     private String desc;

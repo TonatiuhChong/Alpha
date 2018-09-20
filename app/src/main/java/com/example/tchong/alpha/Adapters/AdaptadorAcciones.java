@@ -1,4 +1,4 @@
-package com.example.tchong.alpha;
+package com.example.tchong.alpha.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.tchong.alpha.R;
 
 import java.util.List;
 

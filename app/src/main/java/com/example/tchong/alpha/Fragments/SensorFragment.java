@@ -67,6 +67,7 @@ public class SensorFragment extends Fragment {
 
             }
         });
+
         return Rec;
     }
 

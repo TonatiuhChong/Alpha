@@ -1,6 +1,5 @@
 package com.example.tchong.alpha.Fragments;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,25 +16,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.tchong.alpha.Activities.MenuActivity;
-import com.example.tchong.alpha.AdaptadorAcciones;
-import com.example.tchong.alpha.ListitemAcciones;
+import com.example.tchong.alpha.Adapters.AdaptadorAcciones;
+import com.example.tchong.alpha.Adapters.ListitemAcciones;
 import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Singletons.DatosHabitacion;
-import com.example.tchong.alpha.Userdialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,8 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static android.support.v4.content.ContextCompat.getSystemService;
 
 
 public class ControlFragment extends Fragment{
