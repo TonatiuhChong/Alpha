@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tchong.alpha.Activities.MenuActivity;
+import com.example.tchong.alpha.AdaptadorAcciones;
+import com.example.tchong.alpha.ListitemAcciones;
 import com.example.tchong.alpha.R;
 import com.example.tchong.alpha.Singletons.DatosHabitacion;
 import com.example.tchong.alpha.Userdialog;
@@ -58,23 +62,11 @@ public class ControlFragment extends Fragment{
     private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
     private String[] Sense = {"Presencia", "Iluminación", "Ambiental"};
     private String[] automatizacion = {"motor", "servo", "luz", "puerta", "ventana"};
-    private String[] countries = {
-            "Switch",
-            "Presencia",
-            "Ambiental",
-            "Puerta",
-            "Ventana",
-            "Iluminación"
-    };
-    Integer[] flags = {
-            R.drawable.corriente,
-            //here you have to give image name which you already pasted it in /res/drawable-hdpi/
-            R.drawable.presencia,
-            R.drawable.ambiental,
-            R.drawable.puerta,
-            R.drawable.ventana,
-            R.drawable.iluminacion
-    };
+
+    //***********
+    private RecyclerView recyclerView1;
+    private RecyclerView.Adapter adapter1;
+    private List<ListitemAcciones> listItems;
 
     @Nullable
     @Override
@@ -172,16 +164,59 @@ public class ControlFragment extends Fragment{
             }
         });
 
+        //***********************LISTA1
+
+
+
+
         return Rec;
     }
 
     private void dialogos() {
+         String[] NAcciones = {
+                "Switch",
+                "Presencia",
+                "Ambiental",
+                "Puerta",
+                "Ventana",
+                "Iluminación"
+        };
+         int [] images = {
+                R.drawable.corriente,
+                //here you have to give image name which you already pasted it in /res/drawable-hdpi/
+                R.drawable.presencia,
+                R.drawable.ambiental,
+                R.drawable.puerta,
+                R.drawable.ventana,
+                R.drawable.iluminacion
+        };
+
+
         final Dialog dialog= new Dialog(getActivity());
         dialog.setContentView(R.layout.dialogcasa);
-        dialog.setTitle("Title...");
+        dialog.setTitle("Actividades");
+        //********************************
         TextView text = (TextView) dialog.findViewById(R.id.text);
         text.setText(DatosHabitacion.getInstance().getHabitacion());
         Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        recyclerView1=(RecyclerView)dialog.findViewById(R.id.listviewAcciones);
+        //recyclerView1.hasFixedSize(true);
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayout.HORIZONTAL,false));
+        listItems=new ArrayList<>();
+
+        for (int i=0; i<images.length; i++){
+            ListitemAcciones listItem=new ListitemAcciones(
+                    NAcciones[i], images[i]
+            );
+
+            listItems.add(listItem);
+        }
+        adapter1=new AdaptadorAcciones(listItems,getActivity());
+        recyclerView1.setAdapter(adapter1);
+
+
+
+
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

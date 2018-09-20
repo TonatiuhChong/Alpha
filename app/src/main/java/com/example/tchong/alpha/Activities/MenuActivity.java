@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.disklrucache.DiskLruCache;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.tchong.alpha.Configurations.ConfiguracionActivity;
 import com.example.tchong.alpha.Fragments.ControlFragment;
@@ -36,6 +37,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -90,18 +92,25 @@ public class MenuActivity extends AppCompatActivity
 
 
 
-        Calendar now = Calendar.getInstance();
-        int a = now.get(Calendar.AM_PM);
-        Date HrActual= Calendar.getInstance().getTime();
-//        Toast.makeText(this, HrActual.toString(), Toast.LENGTH_SHORT).show();
-        Log.d(TAG,HrActual.toString());
-//        if(a == ) {
-//            nave.setBackground(this.getResources().getDrawable(R.drawable.morning));
-//        }
-//        else {
-//            nave.setBackground(this.getResources().getDrawable(R.drawable.night));
-//        }
 
+
+        Calendar now = Calendar.getInstance();
+        int currentHour = now.get(Calendar.HOUR_OF_DAY);
+
+
+        if(currentHour<7) {
+            nave.setBackground(this.getResources().getDrawable(R.drawable.night));
+        }if(currentHour<12 & currentHour>8 ){
+            nave.setBackground(this.getResources().getDrawable(R.drawable.sunny));
+
+        }if(currentHour<19 & currentHour>12 ){
+            nave.setBackground(this.getResources().getDrawable(R.drawable.afternoon));
+        }if (currentHour>19){
+            nave.setBackground(this.getResources().getDrawable(R.drawable.night));
+        }if (currentHour>7 & currentHour<9){
+            nave.setBackground(this.getResources().getDrawable(R.drawable.morning));
+
+        }
 
 
 
