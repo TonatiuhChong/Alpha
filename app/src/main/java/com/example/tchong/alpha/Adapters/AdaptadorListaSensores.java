@@ -46,14 +46,14 @@ public class AdaptadorListaSensores extends RecyclerView.Adapter<AdaptadorListaS
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView nombre;
+        public TextView TipoSensor,ValorSensor,Tipomotor,ValorMotor,HabitacionListview;
         public LinearLayout layout;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            nombre=(TextView)itemView.findViewById(R.id.nombre);
+            TipoSensor=(TextView)itemView.findViewById(R.id.nombre);
 
             layout=(LinearLayout)itemView.findViewById(R.id.LinearCartita);
 

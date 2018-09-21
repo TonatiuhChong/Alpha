@@ -26,9 +26,6 @@ public class AdaptadorAcciones extends RecyclerView.Adapter<AdaptadorAcciones.Vi
 
     private Context context;
 
-
-
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v= LayoutInflater.from(viewGroup.getContext())
