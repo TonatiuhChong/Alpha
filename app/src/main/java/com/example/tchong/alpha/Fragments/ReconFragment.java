@@ -72,7 +72,7 @@ public class ReconFragment extends Fragment implements View.OnClickListener{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VActivacion=!VActivacion;
+//                VActivacion=!VActivacion;
                 Snackbar.make(view, "Acerquese a la camara para activar el reconocimiento Facial", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 

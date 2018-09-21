@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tchong.alpha.R;
+import com.example.tchong.alpha.Singletons.DatosHabitacion;
 
 import java.util.List;
 
@@ -40,13 +41,16 @@ public class AdaptadorAcciones extends RecyclerView.Adapter<AdaptadorAcciones.Vi
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         final ListitemAcciones listItem=listItems.get(i);
 
+
         viewHolder.nombre.setText(listItem.getDesc());
         viewHolder.imagen.setImageResource(listItem.getFoto());
+
 
         viewHolder.imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, listItem.getDesc(), Toast.LENGTH_SHORT).show();
+                DatosHabitacion.getInstance().setModo(listItem.getDesc());
+             Toast.makeText(context,DatosHabitacion.getInstance().getModo(), Toast.LENGTH_SHORT).show();
 
             }
         });

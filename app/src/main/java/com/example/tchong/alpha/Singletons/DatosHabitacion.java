@@ -9,7 +9,7 @@ public class DatosHabitacion {
 
     private DatosHabitacion() {
     }
-    String habitacion,modo,tipo,valor;
+    String habitacion,modo,tipo,valor,tsensores;
 
     public String getTipo() {
         return tipo;
@@ -19,7 +19,20 @@ public class DatosHabitacion {
         this.tipo = tipo;
     }
 
-    public DatosHabitacion(String habitacion, String modo, String tipo, String tsensores, String valor) {
+    public String getTsensores() {
+        return tsensores;
+    }
+
+    public void setTsensores(String tsensores) {
+        this.tsensores = tsensores;
+    }
+
+    public DatosHabitacion(String tsensores) {
+
+        this.tsensores = tsensores;
+    }
+
+    public DatosHabitacion(String habitacion, String modo, String tipo, String valor) {
         this.habitacion = habitacion;
         this.modo = modo;
         this.tipo = tipo;

@@ -16,11 +16,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.tchong.alpha.Adapters.AdaptadorAcciones;
@@ -44,10 +46,8 @@ public class ControlFragment extends Fragment{
     private ListView list;
     private Button btn;
     private ImageView sala,comedor, cocina1,cocina2,estudio,pasillo1,pasillo2,pasillo3,bano,servicio;
-    private  EditText EditHab,EditSense,EditValue;
+    private EditText EditHab,EditSense,EditValue;
     private String[] rooms = {"Cocina", "Habitacion1", "Sala", "Estudio", "Entrada", "Comedor"};
-    private String[] logicos = {"true", "false"};
-    private String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
     private String[] Sense = {"Presencia", "Iluminación", "Ambiental"};
     private String[] automatizacion = {"motor", "servo", "luz", "puerta", "ventana"};
 
@@ -74,14 +74,12 @@ public class ControlFragment extends Fragment{
         pasillo3=Rec.findViewById(R.id.ImgHabPasillo3);
         bano=Rec.findViewById(R.id.ImgHabBano);
         servicio=Rec.findViewById(R.id.ImgHabServicio);
-
         //*******EditText
         EditHab=Rec.findViewById(R.id.EditHabitacion);
         EditSense=Rec.findViewById(R.id.EditSensor);
         EditValue=Rec.findViewById(R.id.EditValor);
         EditHab.setText("cocina");
         EditSense.setText("notif");
-
         //**************
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,12 +149,9 @@ public class ControlFragment extends Fragment{
                 dialogos();
             }
         });
+        //***********************
 
-        //***********************LISTA1
-
-
-
-
+        DatosHabitacion.getInstance().setModo("Falso");
         return Rec;
     }
 
@@ -179,6 +174,9 @@ public class ControlFragment extends Fragment{
                 R.drawable.iluminacion
         };
 
+        String[] logicos = {"true", "false"};
+        String[] analogicos = {"Apagar", "Bajo", "Medio", "Alto", "Encendido Completo"};
+
 
         final Dialog dialog= new Dialog(getActivity());
         dialog.setContentView(R.layout.dialogcasa);
@@ -191,7 +189,10 @@ public class ControlFragment extends Fragment{
         //recyclerView1.hasFixedSize(true);
         recyclerView1.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayout.HORIZONTAL,false));
         listItems=new ArrayList<>();
-
+        //spinner
+        Spinner spinner=(Spinner)dialog.findViewById(R.id.spinner);
+        ArrayAdapter adapterSpinner = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, logicos);
+        //Carga valores al list view custom
         for (int i=0; i<images.length; i++){
             ListitemAcciones listItem=new ListitemAcciones(
                     NAcciones[i], images[i]
@@ -200,7 +201,16 @@ public class ControlFragment extends Fragment{
             listItems.add(listItem);
         }
         adapter1=new AdaptadorAcciones(listItems,getActivity());
+
         recyclerView1.setAdapter(adapter1);
+
+
+        switch (DatosHabitacion.getInstance().getModo()){
+            case "Switch":
+                spinner.setAdapter(adapterSpinner);
+            break;
+
+        }
 
 
 
